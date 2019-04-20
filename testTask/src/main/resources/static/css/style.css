@@ -1,0 +1,90 @@
+/**
+* Стилизуем placeholder
+*/
+
+::-webkit-input-placeholder {color: #aaaaaa;}
+::-moz-placeholder          {color: #aaaaaa;} /* Firefox 19+ */
+:-moz-placeholder           {color: #aaaaaa;} /* Firefox 18- */
+:-ms-input-placeholder      {color: #aaaaaa;}
+
+input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
+input::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
+input:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
+input:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
+input:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
+input:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
+input:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
+input:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
+
+/**
+ * Основные стили
+ */
+
+body {
+    background: url('https://codernote.ru/files/image/fon-1.png');
+    font: 14px/20px 'Open Sans', serif;
+}
+
+.form__wrapper {
+    width: 40%;
+    margin: 20px auto;
+}
+
+form#formRegister {
+    width: 45%;
+    position: relative;
+    background: #FFF;
+
+
+    padding: 10px;
+    border: 1px solid #a7a7a7;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius: 4px;
+    box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.10);
+}
+
+form#personForm div.fields {
+    position: relative;
+    line-height: 30px;
+    margin-bottom: 15px;
+}
+
+form#personForm input[type="text"] {
+    width: 15%;
+    outline: none;
+    padding: 5px;
+    border: 1px solid #a7a7a7;
+}
+
+form#personForm input[type="date"] {
+    width: 10%;
+    outline: none;
+    padding: 5px;
+    border: 1px solid #a7a7a7;
+}
+
+form#personForm input[type="text"]:focus, form#personForm input[type="date"]:focus {
+    border: 1px solid #2A900C;
+}
+
+form#personForm input[type="text"].error, form#personForm input[type="date"].error, form#idForm input[type="text"].error {
+    border: 1px solid red;
+}
+
+form#personForm span.dot {
+    position: 5;
+    color: red;
+    line-height: 45px;
+    right: 0;
+}
+
+form#personForm span.text-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: red;
+    font-size: 100px;
+    line-height: 10000px;
+}
+

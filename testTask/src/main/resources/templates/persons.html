@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+<link href="css/style.css" rel="stylesheet">
+    <title>Test task for iac. CRUD aplication</title>
+</head>
+<body>
+<div align="center">
+    <form th:action="@{/logout}" method="post">
+        <input class="btn btn-primary" type="submit" value="Sign Out"/>
+    </form>
+</div>
+<h3>Операции с пользователем</h3>
+
+    <form id="idForm" class="validate">
+        <div>
+            <div>
+                <label>ID:</label>
+                <br>
+                <input class="form-control" type="text" placeholder="ID" id="personId" name="personId">
+            </div>
+        </div>
+    </form>
+    <br>
+    <form id="personForm" class="validate">
+        <div>
+            <div >
+                <label>Фамилия:</label>
+                <br>
+                <input class="form-control" type="text" placeholder="Фамилия" id="lastName" name="lastName">
+                <span class="dot">*</span>
+            </div>
+            <div>
+                <label>Имя:</label>
+                <br>
+                <input class="form-control" type="text" placeholder="Имя" id="firstName" name="firstName">
+                <span class="dot">*</span>
+            </div>
+            <div>
+                <label>Отчество:</label>
+                <br>
+                <input class="form-control" type="text" placeholder="Отчество" id="middleName" name="middleName">
+                <span class="dot">*</span>
+            </div>
+            <div>
+                <label>Дата рождения:</label>
+                <br>
+                <input class="form-control" type="date" placeholder="Дата рождения" id="birthDate" name="birthDate">
+                <span class="dot">*</span>
+            </div>
+        </div>
+        <br/>
+        <div>
+            <button id="btnAddNewPerson" type="button" class="btn btn-primary">Добавить</button>
+            <button id="btnUpdatePerson" type="button" class="btn btn-primary">Обновить</button>
+            <button id="btnGetPersonById" type="button" class="btn btn-primary">Получить</button>
+            <button id="btnRemovePerson" type="button" class="btn btn-primary">Удалить</button>
+        </div>
+    </form>
+<br/>
+
+    <h3>Данные о выбранном пользователе</h3>
+    <div align="center" class="container">
+        <table id="tableOnePerson" border="3" width="100%" cellpadding="1" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Дата рождения</th>
+                <th>Комментарий</th>
+                <th>Обновлено</th>
+            </tr>
+            </thead>
+            <tbody align="center">
+            </tbody>
+        </table>
+    </div>
+
+<br/>
+    <h3>Список пользователей</h3>
+    <div >
+        <button id="btnGetAllPersons" type="button" class="btn btn-primary">Заполнить таблицу</button>
+        <button id="btnWorking" type="button" class="btn btn-primary">Обработать данные</button>
+    </div>
+<br/>
+
+    <div align="center" class="container">
+        <table id="tableListAllUsers" border="3" width="100%" cellpadding="1" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Выбрать</th>
+                <th>ID</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Дата рождения</th>
+                <th>Комментарий</th>
+            </tr>
+            </thead>
+            <tbody align="center">
+            </tbody>
+        </table>
+    </div>
+<br/>
+
+<div align="center" class="container">
+    <table id="tableListNotification" border="3" width="60%" cellpadding="1" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Нотификация при помощи Websocket</th>
+        </tr>
+        </thead>
+        <tbody align="center" id="textNotification">
+        </tbody>
+    </table>
+</div>
+
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/js/socket.js"></script>
+<script src="/js/persons.js"></script>
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+
+</body>
+</html>
