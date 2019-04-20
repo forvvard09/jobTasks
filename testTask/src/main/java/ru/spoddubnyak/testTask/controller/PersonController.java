@@ -1,18 +1,20 @@
 package ru.spoddubnyak.testTask.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.*;
 import ru.spoddubnyak.testTask.domain.Person;
-import ru.spoddubnyak.testTask.domain.SocketMessage;
 import ru.spoddubnyak.testTask.exception.AlreadyExistException;
 import ru.spoddubnyak.testTask.service.PersonService;
+import ru.spoddubnyak.testTask.worker.CallableWorker;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping(value = "/persons", produces = "application/json")
@@ -24,6 +26,11 @@ public class PersonController {
     public PersonController(final PersonService service) {
         this.service = service;
     }
+
+
+    @Qualifier("taskExecutor")
+    @Autowired
+    ThreadPoolTaskExecutor threadPool;
 
 
     @PostMapping(consumes = "application/json")
