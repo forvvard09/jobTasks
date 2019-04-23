@@ -2,19 +2,18 @@ package ru.spoddubnyak.testTask.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.*;
 import ru.spoddubnyak.testTask.domain.Person;
 import ru.spoddubnyak.testTask.exception.AlreadyExistException;
 import ru.spoddubnyak.testTask.service.PersonService;
-import ru.spoddubnyak.testTask.worker.CallableWorker;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping(value = "/persons", produces = "application/json")
@@ -28,9 +27,14 @@ public class PersonController {
     }
 
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     @Qualifier("taskExecutor")
     @Autowired
-    ThreadPoolTaskExecutor threadPool;
+    private TaskExecutor taskExecutor;
+
+
 
 
     @PostMapping(consumes = "application/json")
@@ -78,9 +82,17 @@ public class PersonController {
     @PutMapping(path = "/working", consumes = "application/json")
     public ResponseEntity<List<Person>> process(@RequestBody final Integer[] mass) {
         List<Person> list = new ArrayList<>();
-        for (Integer integer : mass) {
-            list.add(service.processData(integer));
+        synchronized (list) {
+            for (int index : mass) {
+                taskExecutor.execute(runTask(list, index));
+            }
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    private Runnable runTask(List<Person> list, int index) {
+        return () -> {
+            list.add(service.processData(index));
+        };
     }
 }

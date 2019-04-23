@@ -3,11 +3,10 @@ package ru.spoddubnyak.testTask.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.spoddubnyak.testTask.exception.NotFoundException;
 import ru.spoddubnyak.testTask.domain.Person;
+import ru.spoddubnyak.testTask.exception.NotFoundException;
 import ru.spoddubnyak.testTask.repo.PersonRepo;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -41,7 +40,6 @@ public class PersonService {
     public boolean isExists(final Integer personId) {
         return repository.findById(personId).isPresent();
     }
-
 
     @Transactional
     public Person processData(final Integer id) {
