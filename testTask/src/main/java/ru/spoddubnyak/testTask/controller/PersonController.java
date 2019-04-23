@@ -26,15 +26,9 @@ public class PersonController {
         this.service = service;
     }
 
-
-    @Autowired
-    private ApplicationContext applicationContext;
-
     @Qualifier("taskExecutor")
     @Autowired
     private TaskExecutor taskExecutor;
-
-
 
 
     @PostMapping(consumes = "application/json")
@@ -46,7 +40,6 @@ public class PersonController {
             }
         }
         return new ResponseEntity<>(service.save(person), HttpStatus.CREATED);
-
     }
 
 
@@ -58,7 +51,6 @@ public class PersonController {
             return new ResponseEntity<>(service.save(person), HttpStatus.OK);
         } else {
             throw new AlreadyExistException(personId);
-
         }
     }
 
@@ -82,7 +74,7 @@ public class PersonController {
     @PutMapping(path = "/working", consumes = "application/json")
     public ResponseEntity<List<Person>> process(@RequestBody final Integer[] mass) {
         List<Person> list = new ArrayList<>();
-        synchronized (list) {
+        synchronized (mass) {
             for (int index : mass) {
                 taskExecutor.execute(runTask(list, index));
             }
